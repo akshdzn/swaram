@@ -1,4 +1,17 @@
+:root {
+  --text: white;
+  --bg: rgba(7, 7, 7, 1);
+  --glow: linear-gradient(90deg, #FF4210 0%, #FF9D01 29%, #ADC000 57%, #0E74C5 82%, #FF8000 100%);
+}
+
 body {
   margin: 0;
   padding: 0;
+  background-image: url("/bg/bg-swaram.webp");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: var(--text);
+  font-family: "DM Sans", sans-serif;
 }
