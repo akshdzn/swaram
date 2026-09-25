@@ -1,9 +1,23 @@
+<script>
+    import ButtonChat from "./ButtonChat.svelte";
+
+    // states = text, voice, processing
+    let chatState = $state("text");
+</script>
+
 <div class="container">
     <div class="chat-box">
-        <textarea
-            wrap="soft"
-            placeholder="What sounds would you like to listen to today ?"
-        ></textarea>
+        {#if chatState == "text"}
+            <textarea
+                wrap="soft"
+                placeholder="What sounds would you like to listen to today ?"
+            ></textarea>
+
+            <div class="buttons">
+                <ButtonChat />
+                <ButtonChat />
+            </div>
+        {/if}
 
         <div class="glow"></div>
     </div>
@@ -29,8 +43,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: space-between;
         box-sizing: border-box;
-        padding: 16px;
+        padding: 16px 16px 8px 16px;
         position: relative;
         overflow: hidden;
     }
@@ -55,5 +70,13 @@
         position: absolute;
         bottom: 0;
         filter: blur(15px);
+    }
+
+    .buttons {
+        width: fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
     }
 </style>
