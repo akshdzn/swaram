@@ -32,6 +32,6 @@
         );
 
         transition: all ease-out 20ms;
-        transform: scaleX(1.2);
+        transform: scaleX(1.1);
     }
 </style>
