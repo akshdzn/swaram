@@ -1,6 +1,15 @@
 <script>
     import WandIcon from "../assets/icons/wand.svg";
     import FadeGrid from "../assets/fadegrid.svg";
+    import ProgressBar from "./ProgressBar.svelte";
+
+    import Scritto from "@scritto/svelte";
+
+    let num = $state(20);
+
+    function updateNum() {
+        num++;
+    }
 </script>
 
 <div class="container">
@@ -21,8 +30,17 @@
     <div class="bottom">
         <div id="sub">Clearing your browser cache removes the model</div>
 
-        <div class="loader-box">
-            <!-- make a progress bar element -->
+        <div
+            class="loader-box"
+            onclick={() => {
+                updateNum();
+            }}
+        >
+            <div class="loader-text">
+                <div class="loader-shine">Loading ONNX</div>
+                <Scritto value={`${num} / 90 Mb`} />
+            </div>
+            <ProgressBar progress={num} />
         </div>
     </div>
 </div>
@@ -92,5 +110,47 @@
         align-items: center;
         flex-direction: column;
         margin-bottom: 24px;
+    }
+
+    .loader-box {
+        width: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .loader-text {
+        font-size: 14px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .loader-shine {
+        background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 30%) 0%,
+            rgba(255, 255, 255, 80%) 50%,
+            rgba(255, 255, 255, 30%) 100%
+        );
+        background-size: 300% 100%;
+        background-position: 100% 0;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        animation: shine 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes shine {
+        0% {
+            background-position: 100% 0;
+        }
+        100% {
+            background-position: 0% 0;
+        }
     }
 </style>
