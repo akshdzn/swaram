@@ -1,5 +1,16 @@
+<script>
+    import { askClassifier } from "./ai/decision";
+</script>
+
 <div class="container">
-    <div class="title">swaram</div>
+    <div
+        class="title"
+        onclick={async () => {
+            console.log(await askClassifier());
+        }}
+    >
+        swaram
+    </div>
 </div>
 
 <style>

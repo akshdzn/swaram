@@ -1,15 +1,34 @@
+<!-- this component is deprecated for now since the model loads so fast -->
 <script>
     import WandIcon from "../assets/icons/wand.svg";
     import FadeGrid from "../assets/fadegrid.svg";
     import ProgressBar from "./ProgressBar.svelte";
 
     import Scritto from "@scritto/svelte";
+    import { onMount } from "svelte";
 
-    let num = $state(20);
+    // ai
+    import { pipeline } from "@huggingface/transformers";
 
-    function updateNum() {
-        num++;
-    }
+    let progress = $state(0);
+    let classifier = $state(null);
+
+    onMount(() => {
+        pipeline("zero-shot-classification", "Xenova/mobilebert-uncased-mnli", {
+            progress_callback: (progressData) => {
+                if (progressData.status === "progress") {
+                    progress = Math.round(progressData.progress || 0);
+                    console.log(
+                        `Downloading ${progressData.file}: ${progress}%`,
+                    );
+                } else if (progressData.status === "ready") {
+                    console.log(`Finished loading: ${progressData.task}`);
+                }
+            },
+        }).then((p) => {
+            classifier = p;
+        });
+    });
 </script>
 
 <div class="container">
@@ -30,17 +49,12 @@
     <div class="bottom">
         <div id="sub">Clearing your browser cache removes the model</div>
 
-        <div
-            class="loader-box"
-            onclick={() => {
-                updateNum();
-            }}
-        >
+        <div class="loader-box">
             <div class="loader-text">
                 <div class="loader-shine">Loading ONNX</div>
-                <Scritto value={`${num} / 90 Mb`} />
+                <Scritto value={`${progress}%`} />
             </div>
-            <ProgressBar progress={num} />
+            <ProgressBar {progress} />
         </div>
     </div>
 </div>
