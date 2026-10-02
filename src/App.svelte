@@ -4,7 +4,7 @@
   import Chat from "./lib/Chat.svelte";
   import { onMount } from "svelte";
 
-  import { initModel } from "./lib/ai/decision";
+  import { initModel } from "./lib/ai/decision.svelte";
 
   onMount(() => {
     initModel();

@@ -1,16 +1,9 @@
 <script>
-    import { askClassifier } from "./ai/decision";
+    import { askClassifier, chooseTags } from "./ai/decision.svelte";
 </script>
 
 <div class="container">
-    <div
-        class="title"
-        onclick={async () => {
-            console.log(await askClassifier());
-        }}
-    >
-        swaram
-    </div>
+    <div class="title">swaram</div>
 </div>
 
 <style>

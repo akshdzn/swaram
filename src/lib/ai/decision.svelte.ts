@@ -1,5 +1,9 @@
 import { pipeline } from "@huggingface/transformers";
 
+import Sounds from "../sounds.json";
+let SoundsArray = Sounds;
+let tags = new Set(SoundsArray.flatMap(s => s.tags));
+
 let classifier: any = null;
 
 export async function initModel() {
@@ -23,12 +27,25 @@ export async function initModel() {
     return classifier;
 }
 
-export async function askClassifier() {
+export async function askClassifier(prompt: string, tags: Set<string>) {
     let result = await classifier(
-        'summer at the beach',
-        ['fireplace', 'rain', 'ocean waves', 'wind', 'thunder'],
+        prompt,
+        [...tags],
         { multi_label: true }
     );
 
     return result
+}
+
+export async function chooseTags(prompt: string) {
+    const result = await askClassifier(prompt, tags);
+
+    let selectedTags: string[] = [];
+    result.scores.forEach((score: number, index: number) => {
+        if (score > 0.8) {
+            selectedTags.push(result.labels[index])
+        }
+    });
+
+    console.log(selectedTags)
 }

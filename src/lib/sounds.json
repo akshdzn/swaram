@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Soft Rain",
+        "tags": [
+            "rain",
+            "cold",
+            "moody"
+        ],
+        "audio": "soft_rain",
+        "volume": 0
+    },
+    {
+        "name": "Cafe people",
+        "tags": [
+            "cafe",
+            "people",
+            "crowd"
+        ],
+        "audio": "cafe_people",
+        "volume": 0
+    },
+    {
+        "name": "Fireplace",
+        "tags": [
+            "fire",
+            "warm",
+            "burning"
+        ],
+        "audio": "fireplace",
+        "volume": 0
+    }
+]
