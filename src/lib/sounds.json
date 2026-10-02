@@ -1,6 +1,6 @@
 [
     {
-        "name": "Soft Rain",
+        "name": "Rain",
         "tags": [
             "rain",
             "cold",
@@ -23,8 +23,7 @@
         "name": "Fireplace",
         "tags": [
             "fire",
-            "warm",
-            "burning"
+            "warm"
         ],
         "audio": "fireplace",
         "volume": 0

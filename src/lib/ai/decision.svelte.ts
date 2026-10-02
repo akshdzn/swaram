@@ -1,10 +1,12 @@
 import { pipeline } from "@huggingface/transformers";
 
 import Sounds from "../sounds.json";
-let SoundsArray = Sounds;
-let tags = new Set(SoundsArray.flatMap(s => s.tags));
+let SoundsArray = $state(Sounds);
+let tags = new Set(SoundsArray.flatMap(s => s.name));
 
 let classifier: any = null;
+
+// model choice 2 : 'Xenova/nli-deberta-v3-small'
 
 export async function initModel() {
     if (classifier) return classifier;
@@ -37,15 +39,20 @@ export async function askClassifier(prompt: string, tags: Set<string>) {
     return result
 }
 
-export async function chooseTags(prompt: string) {
+export async function predictSounds(prompt: string) {
     const result = await askClassifier(prompt, tags);
 
-    let selectedTags: string[] = [];
-    result.scores.forEach((score: number, index: number) => {
-        if (score > 0.8) {
-            selectedTags.push(result.labels[index])
+    // console.log(result);
+
+    result.labels.forEach((label: string, index: number) => {
+        let volume = Math.min(100, result.scores[index] * 1000);
+
+        let sound = SoundsArray.find(s => s.name === label);
+
+        if (sound) {
+            sound.volume = volume
         }
     });
 
-    console.log(selectedTags)
+    // console.log(SoundsArray)
 }

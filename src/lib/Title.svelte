@@ -1,7 +1,3 @@
-<script>
-    import { askClassifier, chooseTags } from "./ai/decision.svelte";
-</script>
-
 <div class="container">
     <div class="title">swaram</div>
 </div>

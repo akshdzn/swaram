@@ -1,14 +1,25 @@
-<script>
+<script lang="ts">
     import ButtonChat from "./ButtonChat.svelte";
+    import { predictSounds } from "./ai/decision.svelte";
 
     // states = text, voice, processing
     let chatState = $state("text");
+    let prompt = $state("");
+
+    async function handleSubmit(e: KeyboardEvent) {
+        if (e.key == "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            await predictSounds(prompt);
+        }
+    }
 </script>
 
 <div class="container">
     <div class="chat-box">
         {#if chatState == "text"}
             <textarea
+                bind:value={prompt}
+                onkeypress={handleSubmit}
                 wrap="soft"
                 placeholder="What sounds would you like to listen to today ?"
             ></textarea>
